@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block stylesheets %}
+<style>
+    table {margin: 0 0 20px; border:1;}
+    td {padding: 5px 10px;}
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div>
+    <table id='blog' border="1">
+        <tr>
+            <td>Feature Image</td>
+            <td>Title</td>
+            <td>Create at</td>
+            {# <td>Category</td> #}
+            <td>Description</td>
+        </tr>
+        <tr>
+            <td><img src="{{ blog['feature_image'] }}" /></td>
+            <td>{{ blog['title'] }}</td>
+            <td>{{ blog['created_at']|date("d/m/Y H:i:s") }}</td>
+            {# <td>{{ blog.category_name }}</td> #}
+            <td>{{ blog['short_description'] }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+</script>
+{% endblock %}
