@@ -27,7 +27,7 @@
             <td>{{ blog.created_at|date("d/m/Y H:i:s") }}</td>
             {# <td>{{ blog.category_name }}</td> #}
             <td>{{ blog.short_description }}</td>
-            <td><a href='blog/{{ blog.id }}'>Show more</a></td>
+            <td><a href='{{ path('blog_detail', {'id': blog.id}) }}'>Show more</a></td>
         </tr>
     {% endfor %}
     </table>
