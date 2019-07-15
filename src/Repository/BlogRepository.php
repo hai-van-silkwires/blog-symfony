@@ -50,6 +50,20 @@ class BlogRepository extends ServiceEntityRepository
     */
 
     /**
+     * Get detail blog with id
+     *
+     * @return blog
+     */
+    public function getDetailBlogById($id)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getArrayResult();
+    }
+  
+    /**
      * Get all blogs
      *
      * @return Object Blog

@@ -10,6 +10,25 @@ use App\Repository\BlogRepository;
 class BlogController extends AbstractController
 {
     /**
+     * @Route("/blog/{id}", name="blog_detail")
+     */
+    public function detail($id)
+    {
+        $blog = $this->getDoctrine()
+            ->getRepository(Blog::class)
+            ->getDetailBlogById($id);
+
+        if (!empty($blog)) {
+            $blog = $blog[0];
+        }
+
+        return $this->render(
+            'blog/detail.html.twig', [
+            'blog' => $blog
+              ]);
+    }
+  
+/**
      * @Route("/", name="blog")
      */
     public function index()
