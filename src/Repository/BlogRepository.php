@@ -62,4 +62,11 @@ class BlogRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+
+    public function getListBlogs()
+    {
+        return $this->createQueryBuilder('b')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

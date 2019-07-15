@@ -45,7 +45,7 @@ class Blog
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
-
+  
     /**
      * @ORM\Column(type="integer")
      */
@@ -55,7 +55,7 @@ class Blog
      * @ORM\Column(type="string", length=255)
      */
     private $short_description;
-
+  
     public function getId(): ?int
     {
         return $this->id;
