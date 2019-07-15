@@ -1,0 +1,12 @@
+body {
+  text-align: center;
+}
+
+#menu-navigation li {
+  color: #f1f1f1;
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: -5px;
+}
