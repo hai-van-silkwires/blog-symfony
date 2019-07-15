@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block stylesheets %}
+<style>
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div>
+    <table id='listBlogs' border="1">
+        <tr>
+            <td>Feature Image</td>
+            <td>Title</td>
+            <td>Create at</td>
+            <td>Description</td>
+            <td>Detail</td>
+        </tr>
+    {% for blog in listBlogs %}
+        <tr>
+            <td><img src='{{ blog.feature_image }}' /></td>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.created_at|date("d/m/Y H:i:s") }}</td>
+            <td>{{ blog.short_description }}</td>
+            <td><a href='blog/{{ blog.id }}'>Show more</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+</script>
+{% endblock %}
