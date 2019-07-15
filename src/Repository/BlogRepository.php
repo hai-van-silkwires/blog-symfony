@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Blog;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -47,4 +48,16 @@ class BlogRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * Get all blogs
+     *
+     * @return Object Blog
+     */
+    public function getListBlogs()
+    {
+        return $this->createQueryBuilder('b')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

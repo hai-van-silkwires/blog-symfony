@@ -45,7 +45,17 @@ class Blog
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+  
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $category_id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $short_description;
+  
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +129,30 @@ class Blog
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getCategoryId(): ?int
+    {
+        return $this->category_id;
+    }
+
+    public function setCategoryId(int $category_id): self
+    {
+        $this->category_id = $category_id;
+
+        return $this;
+    }
+
+    public function getShortDescription(): ?string
+    {
+        return $this->short_description;
+    }
+
+    public function setShortDescription(string $short_description): self
+    {
+        $this->short_description = $short_description;
 
         return $this;
     }
