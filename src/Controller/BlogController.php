@@ -25,6 +25,21 @@ class BlogController extends AbstractController
         return $this->render(
             'blog/detail.html.twig', [
             'blog' => $blog
+              ]);
+    }
+  
+/**
+     * @Route("/", name="blog")
+     */
+    public function index()
+    {
+        $listBlogs = $this->getDoctrine()
+            ->getRepository(Blog::class)
+            ->getListBlogs();
+
+        return $this->render(
+            'blog/index.html.twig', [
+            'listBlogs' => $listBlogs
             ]
         );
     }

@@ -62,4 +62,25 @@ class BlogRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
     }
+  
+    /**
+     * Get all blogs
+     *
+     * @return Object Blog
+     */
+    public function getBlogByCategoryId($categoryId)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.category_id = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function getListBlogs()
+    {
+        return $this->createQueryBuilder('b')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
