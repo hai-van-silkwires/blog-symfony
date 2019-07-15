@@ -9,17 +9,31 @@ use App\Repository\BlogRepository;
 
 class BlogController extends AbstractController
 {
+    private $blogRepository;
+
+    /**
+     * @param BlogRepository $blogRepository [description]
+     */
+    public function __construct(BlogRepository $blogRepository) {
+        $this->blogRepository = $blogRepository;
+    }
+
     /**
      * @Route("/blog/{id}", name="blog_detail")
      */
-    public function detail($id)
+    public function getDetail($id)
     {
-        $blog = $this->getDoctrine()
-            ->getRepository(Blog::class)
-            ->getDetailBlogById($id);
+        $blog = $this->blogRepository
+                     ->getDetailBlogById($id);
 
         if (!empty($blog)) {
             $blog = $blog[0];
+        } else {
+            return $this->render(
+                'bundles/TwigBundle/Exception/error.html.twig', [
+                'message' => 'No any blogs have id is ' . $id
+                ]
+            );
         }
 
         return $this->render(
@@ -27,15 +41,14 @@ class BlogController extends AbstractController
             'blog' => $blog
               ]);
     }
-  
-/**
+
+    /**
      * @Route("/", name="blog")
      */
     public function index()
     {
-        $listBlogs = $this->getDoctrine()
-            ->getRepository(Blog::class)
-            ->getListBlogs();
+        $listBlogs = $this->blogRepository
+                          ->getListBlogs();
 
         return $this->render(
             'blog/index.html.twig', [
