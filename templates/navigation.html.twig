@@ -1,9 +1,8 @@
 {% block navigation %}
 <div id='menu-navigation'>
   <ul>
-    <li><a href='#'>HOME</a></li>
-    <li><a href='#'>ABOUT</a></li>
-    <li><a href='#'>CONTACT</a></li>
+    <li><a href='{{ path('home') }}'>HOME</a></li>
+    <li><a href='{{ path('blog') }}'>BLOG</a></li>
   </ul>
 </div>
 {% endblock %}
