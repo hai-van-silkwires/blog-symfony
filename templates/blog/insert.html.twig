@@ -4,39 +4,25 @@
 
 {% block stylesheets %}
 <style>
-    table {
-        min-width: 600px;
-        max-width: 90%;
-        margin: 0 0 20px;
-        border:1;
-    }
-    td {
-        padding: 5px 10px;
-    }
-    textarea, input {
-        width: 100%;
-    }
-    textarea {
-        height: 100px;
-    }
+    table {margin: 0 0 20px; border:1;}
+    td {padding: 5px 10px;}
 </style>
 {% endblock %}
 
 {% block main_content %}
-<div>
-    <form method='post' action="{{ path('blog_update', {'id': blog.id}) }}">
+    <form method='post' action="{{ path('blog_insert') }}">
         <table id='frmUpdate'>
             <tr>
                 <td>Title blog:</td>
-                <td><input type='text' name='title' value='{{ blog['title'] }}' /></td>
-            </tr>
-            <tr>
-                <td>Content blog:</td>
-                <td><textarea name='content'>{{ blog['content'] }}</textarea></td>
+                <td><input type='text' name='title' /></td>
             </tr>
             <tr>
                 <td>Short desription:</td>
-                <td><textarea name='shortDescription'>{{ blog['short_description'] }}</textarea></td>
+                <td><textarea name='shortDescription'></textarea></td>
+            </tr>
+            <tr>
+                <td>Content:</td>
+                <td><textarea name='content'></textarea></td>
             </tr>
             <tr>
                 <td>Status:</td>
@@ -68,23 +54,6 @@
             </tr>
         </table>
     </form>
-    <table id='blog' border="1">
-        <tr>
-            <td>Feature Image</td>
-            <td>Title</td>
-            <td>Create at</td>
-            {# <td>Category</td> #}
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td><img src="{{ blog['feature_image'] }}" /></td>
-            <td>{{ blog['title'] }}</td>
-            <td>{{ blog['created_at']|date("d/m/Y H:i:s") }}</td>
-            {# <td>{{ blog.category_name }}</td> #}
-            <td>{{ blog['short_description'] }}</td>
-        </tr>
-    </table>
-</div>
 {% endblock %}
 
 {% block javascripts %}
