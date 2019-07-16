@@ -19,12 +19,16 @@
     textarea {
         height: 100px;
     }
+    img {
+        max-width: 100px;
+        max-height: 100px;
+    }
 </style>
 {% endblock %}
 
 {% block main_content %}
 <div>
-    <form method='post' action="{{ path('blog_update', {'id': blog.id}) }}">
+    <form method='post' action="{{ path('blog_update', {'id': blog.id}) }}" enctype="multipart/form-data">
         <table id='frmUpdate'>
             <tr>
                 <td>Title blog:</td>

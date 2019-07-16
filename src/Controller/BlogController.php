@@ -9,11 +9,13 @@ use App\Repository\BlogRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Service\FileUploader;
 
 class BlogController extends AbstractController
 {
     private $blogRepository;
     private $categoryRepository;
+    private $uploadDir;
 
     /**
      * @param BlogRepository $blogRepository [description]
@@ -22,6 +24,8 @@ class BlogController extends AbstractController
                                 CategoryRepository $categoryRepository) {
         $this->blogRepository     = $blogRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->imageDir           = '/assets/images/blog/';
+        $this->uploadDir          = $_SERVER['DOCUMENT_ROOT'] . $this->imageDir;
     }
 
     /**
@@ -90,12 +94,24 @@ class BlogController extends AbstractController
     /**
      * @Route("/admin/blog/update/{id}", name="blog_update")
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, FileUploader $uploader, $id)
     {
       $data = $request->request->all();
+
+      // If data is empty, redirect to blog index
       if (empty($data)) {
         return $this->redirectToRoute('blog');
       }
+      // If featureImage is not uploaded, remove this index
+      if (empty($data['featureImage'])) {
+        unset($data['featureImage']);
+      }
+
+      $file                 = $request->files->get('featureImage');
+      $filename             = $file->getClientOriginalName();
+      $uploader->upload($this->uploadDir, $file, $filename);
+      $data['featureImage'] = $this->imageDir . $filename;
+
       $result = $this->blogRepository
                      ->update($data, $id);
       return $this->redirectToRoute('blog_detail', ['id' => $id]);

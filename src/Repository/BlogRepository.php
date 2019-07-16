@@ -110,14 +110,13 @@ class BlogRepository extends ServiceEntityRepository
             $entityManager->flush();
 
             return [
-                'success' => true
+                'success' => true,
+                'message' => 'Insert successfully'
             ];
         } catch (\Exception $ex) {
             return [
                 'success' => false,
-                'error' => [
-                    get_class($ex) => $ex->getMessage(),
-                ],
+                'message' => $ex->getMessage()
             ];
         }
     }
@@ -147,14 +146,13 @@ class BlogRepository extends ServiceEntityRepository
             $entityManager->flush();
 
             return [
-                'success' => true
+                'success' => true,
+                'message' => 'Insert successfully'
             ];
         } catch (\Exception $ex) {
             return [
                 'success' => false,
-                'error' => [
-                    get_class($ex) => $ex->getMessage(),
-                ],
+                'message' => $ex->getMessage()
             ];
         }
     }
