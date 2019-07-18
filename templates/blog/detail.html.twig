@@ -4,83 +4,67 @@
 
 {% block stylesheets %}
 <style>
-    table {
-        min-width: 600px;
-        max-width: 90%;
-        margin: 0 0 20px;
-        border:1;
-    }
-    td {
-        padding: 5px 10px;
-    }
-    textarea, input {
-        width: 100%;
-    }
-    textarea {
-        height: 100px;
-    }
-    img {
-        max-width: 100px;
-        max-height: 100px;
-    }
-    form {
-        float: left;
-    }
     #blog-index .list-group-item {
       height: 100%;
+    }
+
+    .blog-item {
+      height: auto;
     }
 </style>
 {% endblock %}
 
 {% block main_content %}
 <div id='blog-index'>
-  <div class="form-group">
-      <a href="{{ path('blog_detail', {'id': blog.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-      <img src='{{ blog['feature_image'] }}' class="rounded mx-auto d-block" />
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ blog['title'] }}</h5>
-        <small class="text-muted">{{ blog['created_at']|date("d/m/Y H:i:s") }}</small>
+  <div class='blog-item'>
+      <div class='blog-item-detail'>
+      <div class='blog-item-img'>
+          <img src="{{ blog['feature_image'] }}">
       </div>
-      <p class="mb-1">{{ blog['short_description'] }}</p>
-      </a>
-  </div>
-
-  <div class="form-group">
-    <form method='post' action="{{ path('blog_update', {'id': blog.id}) }}" enctype="multipart/form-data">
-      <div class="form-group">
-        <label for="shortDescription">{% trans %}blog_update_label_title{% endtrans %}</label>
-        <input type="text" class="form-control" id="title" name='title' placeholder="{% trans %}blog_update_text_title_placeholder{% endtrans %}" value='{{ blog['title'] }}'>
+      <div class='blog-item-content'>
+              <h5>{{ blog['title'] }}</h5>
+          <div class='blog-item-content-date'>{{ blog['created_at']|date("d/m/Y H:i:s") }}</div>
+          <p>{{ blog['short_description'] }}</p>
       </div>
-      <div class="form-group">
-        <label for="shortDescription">{% trans %}blog_update_label_short_description{% endtrans %}</label>
-        <textarea class="form-control" id="shortDescription" name="shortDescription" rows="3" placeholder="{% trans %}blog_update_text_short_description_placeholder{% endtrans %}">{{ blog['short_description'] }}</textarea>
-      </div>
-      <div class="form-group">
-        <label for="content">{% trans %}blog_update_label_content{% endtrans %}</label>
-        <textarea class="form-control" id="content" name="content" rows="3" placeholder="{% trans %}blog_update_text_content_placeholder{% endtrans %}">{{ blog['content'] }}</textarea>
-      </div>
-      <div class="form-group">
-        <label for="status">{% trans %}blog_update_label_status{% endtrans %}</label>
-        <select class="form-control" id="status" name="status">
-          <option value='0'>0</option>
-          <option value='1'>1</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="categoryId">{% trans %}blog_update_label_category{% endtrans %}</label>
-        <select class="form-control" id="categoryId" name="categoryId">
-            {% for category in listCategories %}
-                    <option value="{{ category['id'] }}">{{ category['name']}}</option>
-            {% endfor %}
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="featureImage">{% trans %}blog_update_label_image{% endtrans %}</label>
-        <input type="file" class="form-control-file" id="featureImage" name="featureImage">
-      </div>
-      <button type="submit" class="btn btn-primary">{% trans %}blog_update_btn_update{% endtrans %}</button>
-      <a href="{{ path('blog_delete', {'id': blog.id}) }}"><button type="button" class="btn btn-danger">{% trans %}blog_update_btn_delete{% endtrans %}</button></a>
-    </form>
+    </div>
+    <div class='blog-item-update'>
+    <div class="form-group">
+      <form method='post' action="{{ path('blog_update', {'id': blog.id}) }}" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="shortDescription">{% trans %}blog_update_label_title{% endtrans %}</label>
+          <input type="text" class="form-control" id="title" name='title' placeholder="{% trans %}blog_update_text_title_placeholder{% endtrans %}" value='{{ blog['title'] }}'>
+        </div>
+        <div class="form-group">
+          <label for="shortDescription">{% trans %}blog_update_label_short_description{% endtrans %}</label>
+          <textarea class="form-control" id="shortDescription" name="shortDescription" rows="5" placeholder="{% trans %}blog_update_text_short_description_placeholder{% endtrans %}">{{ blog['short_description'] }}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="content">{% trans %}blog_update_label_content{% endtrans %}</label>
+          <textarea class="form-control" id="content" name="content" rows="5" placeholder="{% trans %}blog_update_text_content_placeholder{% endtrans %}">{{ blog['content'] }}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="status">{% trans %}blog_update_label_status{% endtrans %}</label>
+          <select class="form-control" id="status" name="status">
+            <option value='0'>0</option>
+            <option value='1'>1</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="categoryId">{% trans %}blog_update_label_category{% endtrans %}</label>
+          <select class="form-control" id="categoryId" name="categoryId">
+              {% for category in listCategories %}
+                      <option value="{{ category['id'] }}">{{ category['name']}}</option>
+              {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="featureImage">{% trans %}blog_update_label_image{% endtrans %}</label>
+          <input type="file" class="form-control-file" id="featureImage" name="featureImage">
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans %}blog_update_btn_update{% endtrans %}</button>
+        <a href="{{ path('blog_delete', {'id': blog.id}) }}"><button type="button" class="btn btn-danger">{% trans %}blog_update_btn_delete{% endtrans %}</button></a>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}
