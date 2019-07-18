@@ -3,15 +3,15 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{{ path('home') }}">Home</a>
+        <a class="nav-link" href="{{ path('home') }}">{% trans %}navigation_homepage{% endtrans %}</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{{ path('blog') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Blog
+          {% trans %}navigation_blog{% endtrans %}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ path('blog') }}">List blog</a>
-          <a class="dropdown-item" href="{{ path('blog_insert') }}">Insert blog</a>
+          <a class="dropdown-item" href="{{ path('blog') }}">{% trans %}navigation_blog_index{% endtrans %}</a>
+          <a class="dropdown-item" href="{{ path('blog_insert') }}">{% trans %}navigation_blog_insert{% endtrans %}</a>
         </div>
       </li>
     </ul>

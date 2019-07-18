@@ -4,13 +4,14 @@
 
 {% block stylesheets %}
 <style>
+  img#background {
+    width: 100%;
+  }
 </style>
 {% endblock %}
 
 {% block main_content %}
-<div>
-    <h1> {{ content }}! ✅</h1>
-</div>
+  <img id='background' src="/assets/images/index/background.jpg" />
 {% endblock %}
 
 {% block javascripts %}

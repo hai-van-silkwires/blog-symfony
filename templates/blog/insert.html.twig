@@ -14,7 +14,7 @@
 {% if errors is defined %}
   <div id='validateError' class="alert alert-danger" role="alert">
   {% for error in errors %}
-      {{ error }} <br />
+      {{ error|trans }} <br />
   {% endfor %}
   </div>
 {% endif %}
@@ -22,26 +22,26 @@
 <div id='blog-index'>
     <form method='post' action="{{ path('blog_insert') }}" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="title">Title blog:</label>
-        <input type="text" class="form-control" id="title" name='title' placeholder="Enter title">
+        <label for="title">{% trans %}blog_update_label_title{% endtrans %}</label>
+        <input type="text" class="form-control" id="title" name='title' placeholder="{% trans %}blog_update_text_title_placeholder{% endtrans %}">
       </div>
       <div class="form-group">
-        <label for="shortDescription">Short desription:</label>
-        <textarea class="form-control" id="shortDescription" name="shortDescription" rows="3"></textarea>
+        <label for="shortDescription">{% trans %}blog_update_label_short_description{% endtrans %}</label>
+        <textarea class="form-control" id="shortDescription" name="shortDescription" rows="3" placeholder="{% trans %}blog_update_text_short_description_placeholder{% endtrans %}"></textarea>
       </div>
       <div class="form-group">
-        <label for="content">Content:</label>
-        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+        <label for="content">{% trans %}blog_update_label_content{% endtrans %}</label>
+        <textarea class="form-control" id="content" name="content" rows="3" placeholder="{% trans %}blog_update_text_content_placeholder{% endtrans %}"></textarea>
       </div>
       <div class="form-group">
-        <label for="status">Status</label>
+        <label for="status">{% trans %}blog_update_label_status{% endtrans %}</label>
         <select class="form-control" id="status" name="status">
           <option value='0'>0</option>
           <option value='1'>1</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="categoryId">Category</label>
+        <label for="categoryId">{% trans %}blog_update_label_category{% endtrans %}</label>
         <select class="form-control" id="categoryId" name="categoryId">
             {% for category in listCategories %}
                     <option value="{{ category['id'] }}">{{ category['name']}}</option>
@@ -49,10 +49,10 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="featureImage">Blog image</label>
+        <label for="featureImage">{% trans %}blog_update_label_image{% endtrans %}</label>
         <input type="file" class="form-control-file" id="featureImage" name="featureImage">
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">{% trans %}blog_insert_btn_insert{% endtrans %}</button>
     </form>
 </div>
 {% endblock %}
