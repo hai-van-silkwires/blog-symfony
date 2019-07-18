@@ -57,8 +57,8 @@ class BlogRepository extends ServiceEntityRepository
     public function getDetailBlogById($id)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.id = :val')
-            ->setParameter('val', $id)
+            ->andWhere('b.id = ' . $id)
+            ->andWhere('b.status = 0')
             ->getQuery()
             ->getArrayResult();
     }
@@ -96,13 +96,15 @@ class BlogRepository extends ServiceEntityRepository
     public function insert($data)
     {
         try {
-            $blog = new Blog();
-            $data['createdAt'] = new \DateTime();
-            $data['updatedAt'] = new \DateTime();
+            $blog            = new Blog();
+            $data->createdAt = new \DateTime();
+            $data->updatedAt = new \DateTime();
 
             foreach ($data as $key => $value) {
-                $setter = 'set' . ucfirst($key);
-                $blog->$setter($value);
+                $setterFunction = 'set' . ucfirst($key);
+                if (method_exists($blog, $setterFunction)) {
+                    $blog->$setterFunction($value);
+                }
             }
 
             $entityManager = $this->getEntityManager();
@@ -134,11 +136,13 @@ class BlogRepository extends ServiceEntityRepository
         $blog = $this->findOneBy(array('id' => $id));
 
         try {
-            $data['updatedAt'] = new \DateTime();
+            $data->updatedAt = new \DateTime();
 
             foreach ($data as $key => $value) {
-                $setter = 'set' . ucfirst($key);
-                $blog->$setter($value);
+                $setterFunction = 'set' . ucfirst($key);
+                if (method_exists($blog, $setterFunction)) {
+                    $blog->$setterFunction($value);
+                }
             }
 
             $entityManager = $this->getEntityManager();
@@ -147,7 +151,7 @@ class BlogRepository extends ServiceEntityRepository
 
             return [
                 'success' => true,
-                'message' => 'Insert successfully'
+                'message' => 'Update successfully'
             ];
         } catch (\Exception $ex) {
             return [

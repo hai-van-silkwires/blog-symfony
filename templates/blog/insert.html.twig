@@ -10,50 +10,51 @@
 {% endblock %}
 
 {% block main_content %}
-    <form method='post' action="{{ path('blog_insert') }}">
-        <table id='frmUpdate'>
-            <tr>
-                <td>Title blog:</td>
-                <td><input type='text' name='title' /></td>
-            </tr>
-            <tr>
-                <td>Short desription:</td>
-                <td><textarea name='shortDescription'></textarea></td>
-            </tr>
-            <tr>
-                <td>Content:</td>
-                <td><textarea name='content'></textarea></td>
-            </tr>
-            <tr>
-                <td>Status:</td>
-                <td>
-                    <select name='status'>
-                        <option value='0'>0</option>
-                        <option value='1'>1</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Category:</td>
-                <td>
-                <select name='categoryId'>
-                    {% for category in listCategories %}
-                            <option value="{{ category['id'] }}">{{ category['name']}}</option>
-                    {% endfor %}
-                </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Image:</td>
-                <td>
-                    <input type='file' name='featureImage' />
-                </td>
-            </tr>
-            <tr>
-                <td><button>Submit</button></td>
-            </tr>
-        </table>
+
+{% if errors is defined %}
+  <div id='validateError' class="alert alert-danger" role="alert">
+  {% for error in errors %}
+      {{ error }} <br />
+  {% endfor %}
+  </div>
+{% endif %}
+
+<div id='blog-index'>
+    <form method='post' action="{{ path('blog_insert') }}" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="title">Title blog:</label>
+        <input type="text" class="form-control" id="title" name='title' placeholder="Enter title">
+      </div>
+      <div class="form-group">
+        <label for="shortDescription">Short desription:</label>
+        <textarea class="form-control" id="shortDescription" name="shortDescription" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="content">Content:</label>
+        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" name="status">
+          <option value='0'>0</option>
+          <option value='1'>1</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="categoryId">Category</label>
+        <select class="form-control" id="categoryId" name="categoryId">
+            {% for category in listCategories %}
+                    <option value="{{ category['id'] }}">{{ category['name']}}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="featureImage">Blog image</label>
+        <input type="file" class="form-control-file" id="featureImage" name="featureImage">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+</div>
 {% endblock %}
 
 {% block javascripts %}

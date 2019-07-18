@@ -2,28 +2,32 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\DTO\Request\BlogRequest;
 use App\Entity\Blog;
 use App\Repository\BlogRepository;
 use App\Repository\CategoryRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Service\FileUploader;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
     private $blogRepository;
     private $categoryRepository;
+    private $fileUpload;
     private $uploadDir;
 
     /**
      * @param BlogRepository $blogRepository [description]
      */
     public function __construct(BlogRepository $blogRepository,
-                                CategoryRepository $categoryRepository) {
+                                CategoryRepository $categoryRepository,
+                                FileUploader $fileUpload) {
         $this->blogRepository     = $blogRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->fileUpload         = $fileUpload;
         $this->imageDir           = '/assets/images/blog/';
         $this->uploadDir          = $_SERVER['DOCUMENT_ROOT'] . $this->imageDir;
     }
@@ -71,50 +75,66 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/admin/blog/insert", name="blog_insert")
+     * @Route("/admin/blog/insert", name="blog_get_insert", methods={"GET"})
      */
-    public function insert(Request $request)
+    public function getInsert()
     {
-        $listCategories = $this->categoryRepository
-                               ->getListCategories();
+      $listCategories = $this->categoryRepository
+                             ->getListCategories();
+      return $this->render(
+          'blog/insert.html.twig', [
+            'listCategories' => $listCategories
+          ]
+      );
+    }
 
-      $data = $request->request->all();
-      if (empty($data)) {
+    /**
+     * @Route("/admin/blog/insert", name="blog_insert", methods={"POST"})
+     */
+    public function postInsert(BlogRequest $request)
+    {
+      $listCategories = $this->categoryRepository
+                             ->getListCategories();
+      if (!empty($request->getErrors())) {
         return $this->render(
             'blog/insert.html.twig', [
-              'listCategories' => $listCategories
+              'listCategories' => $listCategories,
+              'errors'         => $request->getErrors()
             ]
         );
       }
+
+      $this->fileUpload->upload($this->uploadDir, $request->featureImage, $request->featureImageName);
+      $request->featureImage = $this->imageDir . $request->featureImageName;
+
       $result = $this->blogRepository
-                     ->insert($data);
+                     ->insert($request);
       return $this->redirectToRoute('blog');
     }
 
     /**
      * @Route("/admin/blog/update/{id}", name="blog_update")
      */
-    public function update(Request $request, FileUploader $uploader, $id)
+    public function update(BlogRequest $request, $id)
     {
-      $data = $request->request->all();
+        // If request data has errors, redirect to blog detail
+        if (!empty($request->getErrors())) {
+          return $this->redirectToRoute('blog_detail', array(
+              'id'     => $id,
+              'errors' => $request->getErrors()
+              )
+          );
+        }
 
-      // If data is empty, redirect to blog index
-      if (empty($data)) {
-        return $this->redirectToRoute('blog');
-      }
-      // If featureImage is not uploaded, remove this index
-      if (empty($data['featureImage'])) {
-        unset($data['featureImage']);
-      }
+        $this->fileUpload->upload($this->uploadDir, $request->featureImage, $request->featureImageName);
+        $request->featureImage = $this->imageDir . $request->featureImageName;
 
-      $file                 = $request->files->get('featureImage');
-      $filename             = $file->getClientOriginalName();
-      $uploader->upload($this->uploadDir, $file, $filename);
-      $data['featureImage'] = $this->imageDir . $filename;
-
-      $result = $this->blogRepository
-                     ->update($data, $id);
-      return $this->redirectToRoute('blog_detail', ['id' => $id]);
+        $result = $this->blogRepository
+                       ->update($request, $id);
+        return $this->redirectToRoute('blog_detail', array(
+            'id' => $id
+            )
+        );
     }
 
     /**

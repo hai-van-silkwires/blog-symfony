@@ -1,8 +1,20 @@
 {% block navigation %}
-<div id='menu-navigation'>
-  <ul>
-    <li><a href='{{ path('home') }}'>HOME</a></li>
-    <li><a href='{{ path('blog') }}'>BLOG</a></li>
-  </ul>
-</div>
+<nav id='navigation' class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ path('home') }}">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="{{ path('blog') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Blog
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ path('blog') }}">List blog</a>
+          <a class="dropdown-item" href="{{ path('blog_insert') }}">Insert blog</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
 {% endblock %}

@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block main_content %}
-<div>
+<div id='blog-index'>
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-{{ label }}">
@@ -23,32 +23,17 @@
         {% endfor %}
     {% endfor %}
 
-    <a href='{{ path('blog_insert') }}'>INSERT BLOG</a>
-
-    <table id='listBlogs' border="1">
-        <tr>
-            <td>Feature Image</td>
-            <td>Title</td>
-            <td>Create at</td>
-            {# <td>Category</td> #}
-            <td>Description</td>
-            <td>Detail</td>
-            <td></td>
-        </tr>
     {% for blog in listBlogs %}
-        <tr>
-            <td><img src='{{ blog.feature_image }}' /></td>
-            <td>{{ blog.title }}</td>
-            <td>{{ blog.created_at|date("d/m/Y H:i:s") }}</td>
-            {# <td>{{ blog.category_name }}</td> #}
-            <td>{{ blog.short_description }}</td>
-            <td><a href='{{ path('blog_detail', {'id': blog.id}) }}'>Show more</a></td>
-            <td>
-                <a href='{{ path('blog_delete', {'id': blog.id}) }}'>Delete</a>
-            </td>
-        </tr>
+      <a href="{{ path('blog_detail', {'id': blog.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <img src='{{ blog.feature_image }}' class="rounded mx-auto d-block" />
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ blog.title }}</h5>
+          <small class="text-muted">{{ blog.created_at|date("d/m/Y H:i:s") }}</small>
+        </div>
+        <p class="mb-1">{{ blog.short_description }}</p>
+      </a>
     {% endfor %}
-    </table>
+
 </div>
 {% endblock %}
 
