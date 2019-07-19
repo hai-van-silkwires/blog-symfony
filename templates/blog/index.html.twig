@@ -4,33 +4,34 @@
 
 {% block stylesheets %}
 <style>
-    table {margin: 0 0 20px; border:1;}
-    td {padding: 5px 10px;}
 </style>
 {% endblock %}
 
 {% block main_content %}
-<div>
-    <table id='listBlogs' border="1">
-        <tr>
-            <td>Feature Image</td>
-            <td>Title</td>
-            <td>Create at</td>
-            {# <td>Category</td> #}
-            <td>Description</td>
-            <td>Detail</td>
-        </tr>
-    {% for blog in listBlogs %}
-        <tr>
-            <td><img src='{{ blog.feature_image }}' /></td>
-            <td>{{ blog.title }}</td>
-            <td>{{ blog.created_at|date("d/m/Y H:i:s") }}</td>
-            {# <td>{{ blog.category_name }}</td> #}
-            <td>{{ blog.short_description }}</td>
-            <td><a href='{{ path('blog_detail', {'id': blog.id}) }}'>Show more</a></td>
-        </tr>
+<div id='blog-index'>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
-    </table>
+
+    {% for blog in listBlogs %}
+        <div class='blog-item'>
+            <div class='blog-item-img'>
+                <img src="{{ blog.feature_image }}">
+            </div>
+            <div class='blog-item-content'>
+                <a href="{{ path('blog_detail', {'id': blog.id}) }}">
+                    <h5>{{ blog.title }}</h5>
+                </a>
+                <div class='blog-item-content-date'>{{ blog.created_at|date("d/m/Y H:i:s") }}</div>
+                <p>{{ blog.short_description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
 </div>
 {% endblock %}
 
