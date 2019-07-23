@@ -93,3 +93,58 @@ body {
 #validateError {
   text-align: left;
 }
+
+#security-login {
+  width: 20%;
+  margin: 10% auto;
+  text-align: left;
+}
+
+#security-login button {
+  width: 100%;
+}
+
+
+#admin-content-area {
+  width: 75%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+#admin-content-area ul.flex-column {
+  width: 10%;
+  float: left;
+  text-align: left;
+  margin-right: 10px;
+}
+
+#admin-content-area #admin-content {
+  overflow: hidden;
+}
+
+#admin-content #blog tr {
+  height: 50px !important;
+}
+
+#admin-content #blog td {
+  overflow: hidden;
+}
+
+#admin-content #blog img {
+  width: 50%;
+  height: 25%;
+}
+
+#admin-content #blog td:nth-child(1),
+#admin-content #blog td:nth-child(6) {
+  width: 5%;
+}
+
+#admin-content #blog td:nth-child(2) {
+  width: 15%;
+}
+
+#admin-content #blog td:nth-child(3),
+#admin-content #blog td:nth-child(5) {
+  width: 10%;
+}

@@ -1,0 +1,84 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block stylesheets %}
+<style>
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div id='admin-content'>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+<table id='blog' class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">{% trans %}image_field{% endtrans %}</th>
+      <th scope="col">{% trans %}title_field{% endtrans %}</th>
+      <th scope="col">{% trans %}short_content_field{% endtrans %}</th>
+      <th scope="col">{% trans %}created_at{% endtrans %}</th>
+      <th scope="col">{% trans %}status_field{% endtrans %}</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for blog in listBlogs %}
+    <tr>
+      <td scope="row">{{ loop.index }}</td>
+      <td><img src="{{ blog.feature_image }}"></td>
+      <td>
+        <a href="{{ path('admin_blog_detail', {'id': blog.id}) }}">
+            {{ blog.title }}
+        </a>
+      </td>
+      <td>{{ blog.short_description }}</td>
+      <td>{{ blog.created_at|date("d/m/Y H:i:s") }}</td>
+      <td>
+        {% if blog.status == false %}
+        <button type="button" class="btn btn-success">{% trans %}status_active{% endtrans %}</button>
+        {% else %}
+        <button type="button" class="btn btn-danger">{% trans %}status_inactive{% endtrans %}</button>
+        {% endif %}
+      </td>
+      <td>
+        {% if 'ROLE_ADMIN' in role or 'ROLE_EDITOR' in role %}
+          <button type="button" class="btn btn-default btn-sm">
+            <a href="{{ path('admin_blog_get_update', {'id': blog.id}) }}">
+              <span class="glyphicon glyphicon-edit">{% trans %}edit{% endtrans %}</span>
+            </a>
+          </button>
+          {% if blog.status == false %}
+            <button type="button" class="btn btn-default btn-sm">
+              <a href="{{ path('admin_blog_delete', {'id': blog.id}) }}">
+                <span class="glyphicon glyphicon-remove">{% trans %}remove{% endtrans %}</span>
+              </a>
+            </button>
+          {% else %}
+            <button type="button" class="btn btn-default btn-sm">
+              <a href="{{ path('admin_blog_restore', {'id': blog.id}) }}">
+                <span class="glyphicon glyphicon-refresh">{% trans %}restore{% endtrans %}</span>
+              </a>
+            </button>
+          {% endif %}
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+</script>
+{% endblock %}

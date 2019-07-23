@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block stylesheets %}
+<style>
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div>
+  <div>
+    <div class='blog-item-detail'>
+      <div class='blog-item-img'>
+          <img src="{{ blog['feature_image'] }}">
+      </div>
+      <div class='blog-item-content'>
+              <h5>{{ blog['title'] }}</h5>
+          <div class='blog-item-content-date'>{{ blog['created_at']|date("d/m/Y H:i:s") }}</div>
+          <p>{{ blog['short_description'] }}</p>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+</script>
+{% endblock %}

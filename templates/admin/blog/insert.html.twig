@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Homepage{% endblock %}
 
@@ -19,7 +19,7 @@
 
 <div id='blog-index'>
   <div class='blog-item-update'>
-    <form method='post' action="{{ path('blog_insert') }}" enctype="multipart/form-data">
+    <form method='post' action="{{ path('admin_blog_insert') }}" enctype="multipart/form-data">
       <div class="form-group">
         <label for="title">{% trans %}blog_update_label_title{% endtrans %}</label>
         <input type="text" class="form-control" id="title" name='title' placeholder="{% trans %}blog_update_text_title_placeholder{% endtrans %}">

@@ -77,6 +77,13 @@ class BlogRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    public function getAllBlogs()
+    {
+        return $this->createQueryBuilder('b')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     public function getListBlogs()
     {
         return $this->createQueryBuilder('b')
@@ -181,6 +188,35 @@ class BlogRepository extends ServiceEntityRepository
             return [
                 'success' => true,
                 'message' => 'Blog with id ' . $id . ' is deleted'
+            ];
+        } catch (\Exception $ex) {
+            return [
+                'success' => false,
+                'message' => $ex->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Restore a blog
+     *
+     * @param integer $id Blog id
+     *
+     * @return array Status and message after restoring
+     */
+    public function restore($id)
+    {
+        $blog = $this->findOneBy(array('id' => $id));
+        $blog->setStatus(0);
+
+        try {
+            $entityManager = $this->getEntityManager();
+            $entityManager->persist($blog);
+            $entityManager->flush();
+
+            return [
+                'success' => true,
+                'message' => 'Blog with id ' . $id . ' is restored'
             ];
         } catch (\Exception $ex) {
             return [

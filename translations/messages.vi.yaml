@@ -1,7 +1,19 @@
+status_inactive: "Ngưng hoạt động"
+status_active: "Đang hoạt động"
+created_at: "Ngày tạo"
+updated_at: "Chỉnh sửa lần cuối"
+edit: "Chỉnh sửa"
+remove: "Xoá"
+restore: "Kích hoạt"
+
 navigation_homepage: "Trang chủ"
 navigation_blog: "Bài viết"
 navigation_blog_index: "Danh sách bài viết"
 navigation_blog_insert: "Viết blog mới"
+navigation_user: "Tài khoản"
+navigation_user_index: "Danh sách tài khoản"
+navigation_user_insert: "Thêm tài khoản mới"
+navigation_logout: "Đăng xuất"
 
 blog_update_label_title: "Tiêu đề bài viết"
 blog_update_text_title_placeholder: "Nhập tiêu đề bài viết"
@@ -20,5 +32,21 @@ Title blog is required.: "Tiêu đề bài viết không được để trống.
 Content blog is required.: "Nội dung bài viết không được để trống."
 Short description is required.: "Mô tả bài viết không được để trống."
 Feature image is required.: "Hình ảnh đại diện không được để trống."
+
+admin_security_login_title: "Trang đăng nhập"
+admin_security_login_label_username: "Tên đăng nhập"
+admin_security_login_text_username_placeholder: "Nhập tên đăng nhập vào ô trống"
+admin_security_login_label_password: "Mật khẩu"
+admin_security_login_button_signin: "Đăng nhập"
+
+admin_user_index_label_username: "Tên đăng nhập"
+admin_user_index_label_status: "Trạng thái"
+admin_user_index_label_role: "Quyền hạn"
+
+title_field: "Tiêu đề"
+content_field: "Nội dung"
+short_content_field: "Mô tả ngắn gọn"
+image_field: "Ảnh đại diện"
+status_field: "Trạng thái"
 
 footer_copyright: "Bản quyền © 2019, Silkwires. Đã đăng ký."

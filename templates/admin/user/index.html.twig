@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block stylesheets %}
+<style>
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div id='blog-index'>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">{% trans %}admin_user_index_label_username{% endtrans %}</th>
+      <th scope="col">{% trans %}admin_user_index_label_status{% endtrans %}</th>
+      <th scope="col">{% trans %}admin_user_index_label_role{% endtrans %}</th>
+      <th scope="col">{% trans %}created_at{% endtrans %}</th>
+      <th scope="col">{% trans %}updated_at{% endtrans %}</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in listUsers %}
+        <tr>
+          <th scope="row">{{ user.username }}</th>
+          <td>
+                {% if user.status == 0 %}
+                   <button type="button" class="btn btn-danger">{% trans %}status_inactive{% endtrans %}</button>
+                {% else %}
+                   <button type="button" class="btn btn-success">{% trans %}status_active{% endtrans %}</button>
+                {% endif %}
+          </td>
+          <th scope="row">{{ user.role }}</th>
+          <td>{{ user.created_at|date("d/m/Y H:i:s") }}</td>
+          <td>{{ user.updated_at|date("d/m/Y H:i:s") }}</td>
+          <td></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+</script>
+{% endblock %}

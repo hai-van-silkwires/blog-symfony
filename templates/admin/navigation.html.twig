@@ -1,0 +1,25 @@
+{% block navigation %}
+<ul class="nav flex-column">
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        {% trans %}navigation_blog{% endtrans %}
+        <b class="caret"></b>
+      </a>
+    <ul class="dropdown-menu">
+      <li class="nav-item">
+        <a class="dropdown-item" href="{{ path('admin_blog') }}">{% trans %}navigation_blog_index{% endtrans %}</a>
+      </li>
+      <li class="nav-item">
+        <a class="dropdown-item" href="{{ path('admin_blog_get_insert') }}">{% trans %}navigation_blog_insert{% endtrans %}</a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_logout') }}" id="navbar" role="button" aria-haspopup="true" aria-expanded="false">
+      {% trans %}navigation_logout{% endtrans %}
+    </a>
+  </li>
+
+</ul>
+{% endblock %}
